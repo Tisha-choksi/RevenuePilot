@@ -45,8 +45,10 @@ def upgrade() -> None:
         sa.UniqueConstraint("email"),
     )
 
-    lead_status = postgresql.ENUM("NEW", "QUALIFYING", "QUALIFIED", "DISQUALIFIED", name="lead_status")
-    lead_status.create(op.get_bind())
+    lead_status = postgresql.ENUM(
+        "NEW", "QUALIFYING", "QUALIFIED", "DISQUALIFIED", name="lead_status", create_type=False
+    )
+    lead_status.create(op.get_bind(), checkfirst=True)
 
     op.create_table(
         "leads",
@@ -60,8 +62,10 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
     )
 
-    deal_stage = postgresql.ENUM("OPEN", "PROPOSAL_SENT", "NEGOTIATION", "WON", "LOST", name="deal_stage")
-    deal_stage.create(op.get_bind())
+    deal_stage = postgresql.ENUM(
+        "OPEN", "PROPOSAL_SENT", "NEGOTIATION", "WON", "LOST", name="deal_stage", create_type=False
+    )
+    deal_stage.create(op.get_bind(), checkfirst=True)
 
     op.create_table(
         "deals",
@@ -76,8 +80,10 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
     )
 
-    quote_status = postgresql.ENUM("DRAFT", "SENT", "ACCEPTED", "REJECTED", name="quote_status")
-    quote_status.create(op.get_bind())
+    quote_status = postgresql.ENUM(
+        "DRAFT", "SENT", "ACCEPTED", "REJECTED", name="quote_status", create_type=False
+    )
+    quote_status.create(op.get_bind(), checkfirst=True)
 
     op.create_table(
         "quotes",
@@ -92,8 +98,10 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
     )
 
-    conversation_role = postgresql.ENUM("LEAD", "AGENT", "HUMAN_REP", "SYSTEM", name="conversation_role")
-    conversation_role.create(op.get_bind())
+    conversation_role = postgresql.ENUM(
+        "LEAD", "AGENT", "HUMAN_REP", "SYSTEM", name="conversation_role", create_type=False
+    )
+    conversation_role.create(op.get_bind(), checkfirst=True)
 
     op.create_table(
         "conversations",
