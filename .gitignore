@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv*/
+venv/
+
+# Env files (commit .env.example only)
+.env
+backend/.env
+
+# OS / editor
+.DS_Store
